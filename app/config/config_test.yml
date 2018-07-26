@@ -1,6 +1,9 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+    env(DATABASE_URL): 'sqlite:///%kernel.project_dir%/var/data/blog_test.sqlite'
+
 framework:
     test: ~
     session:
@@ -14,3 +17,8 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+security:
+    firewalls:
+        secured_area:
+            http_basic: ~

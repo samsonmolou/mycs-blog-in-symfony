@@ -8,7 +8,12 @@ _profiler:
 
 _errors:
     resource: '@TwigBundle/Resources/config/routing/errors.xml'
-    prefix: /_error
+    prefix: /{_locale}/_error
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        _locale: '%locale%'
+
 
 _main:
     resource: routing.yml

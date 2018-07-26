@@ -6,12 +6,15 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    app_locales: en|fr
+    app.notifications.email_sender: anonymous@example.com
+
 
 framework:
-    #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
-    secret: '%secret%'
+    ide: ~
+    esi: { enabled: true }
+    translator: { fallbacks: '%locale%' }
+    secret: '%env(SYMFONY_SECRET)%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
         strict_requirements: ~
@@ -27,25 +30,34 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: ~
     http_method_override: true
-    assets: ~
+    assets:
+        json_manifest_path: '%kernel.project_dir%/web/build/manifest.json'
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
+    cache:
+        prefix_seed: mycs-blog
 
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'form/layout.html.twig'
+        - 'form/fiels.html.twig'
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
+        url: '%env(DATABASE_URL)%'
+        #driver: pdo_mysql
+        #host: '%database_host%'
+        #port: '%database_port%'
+        #dbname: '%database_name%'
+        #user: '%database_user%'
+        #password: '%database_password%'
+        #charset: UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -60,10 +72,11 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
+    #transport: '%mailer_transport%'
+    #host: '%mailer_host%'
+    #username: '%mailer_user%'
+    #password: '%mailer_password%'
+    url: '%env(MAILER_URL)%'
     spool: { type: memory }
 
 sensio_framework_extra:
