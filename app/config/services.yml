@@ -26,13 +26,17 @@ services:
         resource: '../../src/AppBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    AppBundle\DataFixtures\:
+        resource: '../../src/AppBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
     
     #AppBundle\Command\ListUsersCommand:
     #    arguments:
     #        $emailSender: '%app.notifications.email_sender%'
     
-    #AppBundle\Twig\AppExtension:
-    #    $locales: '%app_locales%'
+    AppBundle\Twig\AppExtension:
+        $locales: '%app_locales%'
     
 
     #AppBundle\EventListener\CommentNotificationSuscriber:
@@ -42,8 +46,8 @@ services:
         #$locales: '%app_locales%'
         #$defaultLocale: '%locale%'
     
-    #Twig\Extensions\IntlExtension: ~
+    Twig\Extensions\IntlExtension: ~
 
-    #slugger:
-        #alias: AppBundle\Utils\Slugger
-        #public: true
+    slugger:
+        alias: AppBundle\Utils\Slugger
+        public: true

@@ -45,7 +45,7 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'form/layout.html.twig'
-        - 'form/fiels.html.twig'
+        - 'form/fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -79,6 +79,3 @@ swiftmailer:
     url: '%env(MAILER_URL)%'
     spool: { type: memory }
 
-sensio_framework_extra:
-   router:
-        annotations: false
